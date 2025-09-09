@@ -1035,10 +1035,10 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.4
+  m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.35
-  m_SkinWidth: 0.03
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &520388633
@@ -1148,14 +1148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8d48a4b7f9ab64b930e727d957ccf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 1749468557}
-  groundRadius: 0.25
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
   jumpHeight: 1.2
   gravity: -9.81
-  coyoteTime: 0.12
   jumpBufferTime: 0.12
   jumpAction:
     m_UseReference: 1
