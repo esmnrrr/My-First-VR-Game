@@ -30,36 +30,41 @@ public class XRJump : MonoBehaviour
     void Update()
     {
         bool grounded = Physics.CheckSphere(groundCheck.position, groundRadius, groundMask, QueryTriggerInteraction.Ignore);
-
-        // Sadece pozisyonları kontrol edelim
-        Debug.Log($"GroundCheck Y: {groundCheck.position.y}, Player Y: {transform.position.y}");
-        Debug.Log($"Grounded: {grounded}");
-
+        
         if (grounded && verticalVel < 0f) verticalVel = -2f;
-
+        
         if (jumpAction.action != null && jumpAction.action.WasPressedThisFrame())
             bufferTimer = jumpBufferTime;
         else
             bufferTimer = Mathf.Max(0f, bufferTimer - Time.deltaTime);
-
+        
         if (bufferTimer > 0f && grounded)
         {
-            Debug.Log("ZIPLADI!");
             verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
             bufferTimer = 0f;
         }
-
+        
         verticalVel += gravity * Time.deltaTime;
+        
+        // TEST: Klavye ile yatay hareket ekle
         Vector3 move = Vector3.zero;
-
-// Gravity
-        verticalVel += gravity * Time.deltaTime;
         move.y = verticalVel * Time.deltaTime;
-
-// (Eğer ileride sağ/sol/ileri hareket ekleyeceksen buraya move.x / move.z eklersin)
-
-// En son Move çağır
-        controller.Move(move);
+        
+        // WASD ile test hareketi
+        if (Input.GetKey(KeyCode.W)) move.z = 2f * Time.deltaTime;
+        if (Input.GetKey(KeyCode.S)) move.z = -2f * Time.deltaTime;
+        if (Input.GetKey(KeyCode.A)) move.x = -2f * Time.deltaTime;
+        if (Input.GetKey(KeyCode.D)) move.x = 2f * Time.deltaTime;
+        
+        // Collision test
+        Vector3 beforeMove = transform.position;
+        CollisionFlags collisionFlags = controller.Move(move);
+        Vector3 afterMove = transform.position;
+        
+        if (collisionFlags != CollisionFlags.None)
+        {
+            Debug.Log($"Collision Type: {collisionFlags}, Move: {move}, Actual movement: {afterMove - beforeMove}");
+        }
     }
     public void ResetVertical() => verticalVel = 0f;
 }
