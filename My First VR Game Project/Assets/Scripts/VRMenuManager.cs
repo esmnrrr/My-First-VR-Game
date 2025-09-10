@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using TMPro;
 
 public class VRMenuManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class VRMenuManager : MonoBehaviour
     [Header("Settings UI Elements")]
     public Slider volumeSlider;
     public Toggle muteToggle;
-    public Dropdown qualityDropdown;
+    public TMP_Dropdown qualityDropdown;
     public Toggle vsyncToggle;
     
     [Header("Audio")]
